@@ -10,17 +10,26 @@ source:
   sha256: b9d08b675ba54b9cb00ffc99eaba7616d0f7e6f6b8947a7e118474e97d942129
 
 build:
-  number: 0
-  script:
-    - mkdir $PREFIX/include                                # [unix]
-    - cp $SRC_DIR/tiny_obj_loader.h $PREFIX/include        # [unix]
-    - mkdir $PREFIX\include                                # [win]
-    - xcopy /S %SRC_DIR%\tiny_obj_loader.h %LIBRARY_INC%   # [win]
+  number: 1
+  # https://github.com/tinyobjloader/tinyobjloader/issues/274
+  run_exports:
+    - {{ pin_subpackage(name, max_pin='x') }}
+
+requirements:
+  build:
+    - {{ compiler('c') }}
+    - {{ compiler('cxx') }}
+    - ninja
+    - cmake
 
 test:
   commands:
-    - test -f ${PREFIX}/include/tiny_obj_loader.h          # [unix]
+    - test -f ${PREFIX}/include/tiny_obj_loader.h  # [unix]
+    - test -f ${PREFIX}/lib/libtinyobjloader.so  # [linux]
+    - test -f ${PREFIX}/lib/libtinyobjloader.dylib  # [osx]
     - if not exist %LIBRARY_INC%\tiny_obj_loader.h exit 1  # [win]
+    - if not exist %PREFIX%\\Library\\lib\\tinyobjloader.lib exit 1  # [win]
+    - if not exist %PREFIX%\\Library\\bin\\tinyobjloader.dll exit 1  # [win]
 
 about:
   home: https://github.com/{{ name }}/{{ name }}

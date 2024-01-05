@@ -10,7 +10,7 @@ source:
   sha256: b9d08b675ba54b9cb00ffc99eaba7616d0f7e6f6b8947a7e118474e97d942129
 
 build:
-  number: 1
+  number: 2
   # https://github.com/tinyobjloader/tinyobjloader/issues/274
   run_exports:
     - {{ pin_subpackage(name, max_pin='x') }}

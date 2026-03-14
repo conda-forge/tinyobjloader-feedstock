@@ -1,0 +1,50 @@
+schema_version: 1
+
+context:
+  name: tinyobjloader
+  version: "1.0.7"
+
+package:
+  name: ${{ name|lower }}
+  version: ${{ version }}
+
+source:
+  url: https://github.com/${{ name }}/${{ name }}/archive/v${{ version }}.tar.gz
+  sha256: b9d08b675ba54b9cb00ffc99eaba7616d0f7e6f6b8947a7e118474e97d942129
+
+build:
+  # https://github.com/tinyobjloader/tinyobjloader/issues/274
+  number: 3
+
+requirements:
+  build:
+    - ${{ compiler('c') }}
+    - ${{ compiler('cxx') }}
+    - ${{ stdlib('c') }}
+    - ninja
+    - cmake
+  run_exports:
+    - ${{ pin_subpackage(name, upper_bound='x') }}
+
+tests:
+  - package_contents:
+      include:
+        - tiny_obj_loader.h
+      lib:
+        - tinyobjloader
+
+about:
+  license: MIT
+  license_file: LICENSE
+  summary: Tiny but powerful single file wavefront obj loader written in C++03.
+  description: |
+    Tiny but powerful single file wavefront obj loader written in C++03.
+    No dependency except for C++ STL.
+    It can parse over 10M polygons with moderate memory and time.
+  homepage: https://github.com/${{ name }}/${{ name }}
+  repository: https://github.com/${{ name }}/${{ name }}
+
+extra:
+  recipe-maintainers:
+    - traversaro
+    - benjaminrwilson

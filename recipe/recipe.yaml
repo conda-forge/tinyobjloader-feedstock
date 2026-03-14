@@ -20,25 +20,18 @@ requirements:
   build:
     - ${{ compiler('c') }}
     - ${{ compiler('cxx') }}
+    - ${{ stdlib('c') }}
     - ninja
     - cmake
   run_exports:
     - ${{ pin_subpackage(name, upper_bound='x') }}
 
 tests:
-  - script:
-      - if: unix
-        then: test -f ${PREFIX}/include/tiny_obj_loader.h
-      - if: linux
-        then: test -f ${PREFIX}/lib/libtinyobjloader.so
-      - if: osx
-        then: test -f ${PREFIX}/lib/libtinyobjloader.dylib
-      - if: win
-        then: if not exist %LIBRARY_INC%\tiny_obj_loader.h exit 1
-      - if: win
-        then: if not exist %PREFIX%\\Library\\lib\\tinyobjloader.lib exit 1
-      - if: win
-        then: if not exist %PREFIX%\\Library\\bin\\tinyobjloader.dll exit 1
+  - package_contents:
+      include:
+        - tiny_obj_loader.h
+      lib:
+        - tinyobjloader
 
 about:
   license: MIT

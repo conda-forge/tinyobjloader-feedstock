@@ -59,8 +59,10 @@ outputs:
       build:
         - ${{ compiler('cxx') }}
         - ${{ stdlib('c') }}
-        - if: build_platform != target_platform
-          then: python
+        - if: build_platform != host_platform
+          then:
+            - cross-python_${{ host_platform }}
+            - python
       host:
         - pip
         - pybind11

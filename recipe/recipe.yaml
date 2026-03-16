@@ -2,36 +2,99 @@ schema_version: 1
 
 context:
   name: tinyobjloader
-  version: "1.0.7"
+  version: "2.0.0rc13"
 
-package:
-  name: ${{ name|lower }}
+recipe:
+  name: tinyobjloader
   version: ${{ version }}
 
 source:
-  url: https://github.com/${{ name }}/${{ name }}/archive/v${{ version }}.tar.gz
-  sha256: b9d08b675ba54b9cb00ffc99eaba7616d0f7e6f6b8947a7e118474e97d942129
+  url: https://github.com/tinyobjloader/tinyobjloader/archive/refs/tags/v${{ version }}.tar.gz
+  sha256: 0feb92b838f8ce4aa6eb0ccc32dff30cb64a891e0ec3bde837fca49c78d44334
 
 build:
-  # https://github.com/tinyobjloader/tinyobjloader/issues/274
-  number: 3
+  number: 0
 
-requirements:
-  build:
-    - ${{ compiler('c') }}
-    - ${{ compiler('cxx') }}
-    - ${{ stdlib('c') }}
-    - ninja
-    - cmake
-  run_exports:
-    - ${{ pin_subpackage(name, upper_bound='x') }}
+outputs:
+  - package:
+      name: libtinyobjloader
+    build:
+      script:
+        - if: unix
+          then: build_cxx.sh
+        - if: win
+          then: build_cxx.bat
+    requirements:
+      build:
+        - ${{ compiler('c') }}
+        - ${{ compiler('cxx') }}
+        - ${{ stdlib('c') }}
+        - cmake
+        - ninja
+      run_exports:
+        # See https://github.com/conda-forge/tinyobjloader-feedstock/issues/6
+        - libtinyobjloader ==${{ version }}
+    tests:
+      - package_contents:
+          include:
+            - tiny_obj_loader.h
+          lib:
+            - tinyobjloader
+    about:
+      summary: C++ shared library for tinyobjloader (Wavefront OBJ loader)
+      description: |
+        `libtinyobjloader` ships the compiled C++ shared library and C/C++ headers
+        for tinyobjloader. This output is intended for native consumers linking the
+        tinyobjloader library.
 
-tests:
-  - package_contents:
-      include:
-        - tiny_obj_loader.h
-      lib:
-        - tinyobjloader
+  - package:
+      name: tinyobjloader-python
+    build:
+      script:
+        - if: unix
+          then: SETUPTOOLS_SCM_PRETEND_VERSION=${{ version }} python -m pip install . --no-deps --no-build-isolation -vv
+        - if: win
+          then: set "SETUPTOOLS_SCM_PRETEND_VERSION=${{ version }}" && python -m pip install . --no-deps --no-build-isolation -vv
+    requirements:
+      build:
+        - ${{ compiler('cxx') }}
+        - ${{ stdlib('c') }}
+        - if: build_platform != host_platform
+          then:
+            - cross-python_${{ host_platform }}
+            - python
+      host:
+        - pip
+        - pybind11
+        - python
+        - setuptools
+        - setuptools-scm
+        - wheel
+      run:
+        - python
+    tests:
+      - python:
+          imports:
+            - tinyobjloader
+    about:
+      summary: Python bindings for tinyobjloader
+      description: |
+        `tinyobjloader-python` provides the Python extension module for tinyobjloader,
+        built from upstream pybind11 bindings.
+
+  - package:
+      name: tinyobjloader
+    build:
+      noarch: generic
+    requirements:
+      run:
+        - libtinyobjloader ==${{ version }}
+        - tinyobjloader-python ==${{ version }}
+    about:
+      summary: Metapackage depending on both C++ and Python tinyobjloader outputs
+      description: |
+        `tinyobjloader` is a convenience metapackage that depends on both
+        `libtinyobjloader` (C++ library) and `tinyobjloader-python` (Python bindings).
 
 about:
   license: MIT
@@ -41,8 +104,8 @@ about:
     Tiny but powerful single file wavefront obj loader written in C++03.
     No dependency except for C++ STL.
     It can parse over 10M polygons with moderate memory and time.
-  homepage: https://github.com/${{ name }}/${{ name }}
-  repository: https://github.com/${{ name }}/${{ name }}
+  homepage: https://github.com/tinyobjloader/tinyobjloader
+  repository: https://github.com/tinyobjloader/tinyobjloader
 
 extra:
   recipe-maintainers:

@@ -19,20 +19,6 @@ Development: https://github.com/tinyobjloader/tinyobjloader
 for tinyobjloader. This output is intended for native consumers linking the
 tinyobjloader library.
 
-About tinyobjloader
--------------------
-
-Home: https://github.com/tinyobjloader/tinyobjloader
-
-Package license: MIT
-
-Summary: Metapackage depending on both C++ and Python tinyobjloader outputs
-
-Development: https://github.com/tinyobjloader/tinyobjloader
-
-`tinyobjloader` is a convenience metapackage that depends on both
-`libtinyobjloader` (C++ library) and `tinyobjloader-python` (Python bindings).
-
 About tinyobjloader-python
 --------------------------
 
@@ -47,11 +33,32 @@ Development: https://github.com/tinyobjloader/tinyobjloader
 `tinyobjloader-python` provides the Python extension module for tinyobjloader,
 built from upstream pybind11 bindings.
 
+About tinyobjloader
+-------------------
+
+Home: https://github.com/tinyobjloader/tinyobjloader
+
+Package license: MIT
+
+Summary: Metapackage depending on both C++ and Python tinyobjloader outputs
+
+Development: https://github.com/tinyobjloader/tinyobjloader
+
+`tinyobjloader` is a convenience metapackage that depends on both
+`libtinyobjloader` (C++ library) and `tinyobjloader-python` (Python bindings).
+
 Current build status
 ====================
 
 
-<table>
+<table><tr>
+    <td>GitHub Actions</td>
+    <td>
+      <a href="https://github.com/conda-forge/tinyobjloader-feedstock/actions/workflows/conda-build.yml">
+        <img src="https://github.com/conda-forge/tinyobjloader-feedstock/actions/workflows/conda-build.yml/badge.svg?event=push&branch=main">
+      </a>
+    </td>
+  </tr>
     
   <tr>
     <td>Azure</td>
@@ -65,31 +72,10 @@ Current build status
         <table>
           <thead><tr><th>Variant</th><th>Status</th></tr></thead>
           <tbody><tr>
-              <td>linux_64</td>
-              <td>
-                <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=13064&branchName=main">
-                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/tinyobjloader-feedstock?branchName=main&jobName=linux&configuration=linux%20linux_64_" alt="variant">
-                </a>
-              </td>
-            </tr><tr>
-              <td>linux_aarch64</td>
-              <td>
-                <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=13064&branchName=main">
-                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/tinyobjloader-feedstock?branchName=main&jobName=linux&configuration=linux%20linux_aarch64_" alt="variant">
-                </a>
-              </td>
-            </tr><tr>
               <td>osx_64</td>
               <td>
                 <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=13064&branchName=main">
                   <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/tinyobjloader-feedstock?branchName=main&jobName=osx&configuration=osx%20osx_64_" alt="variant">
-                </a>
-              </td>
-            </tr><tr>
-              <td>osx_arm64</td>
-              <td>
-                <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=13064&branchName=main">
-                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/tinyobjloader-feedstock?branchName=main&jobName=osx&configuration=osx%20osx_arm64_" alt="variant">
                 </a>
               </td>
             </tr><tr>

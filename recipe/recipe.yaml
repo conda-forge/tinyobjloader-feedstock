@@ -50,6 +50,10 @@ outputs:
   - package:
       name: tinyobjloader-python
     build:
+      # cross-python_win-arm64 does not exist, and there are no native
+      # win-arm64 CI runners, so the Python bindings are not built for
+      # this platform.
+      skip: target_platform == "win-arm64"
       script:
         - if: unix
           then: SETUPTOOLS_SCM_PRETEND_VERSION=${{ version }} python -m pip install . --no-deps --no-build-isolation -vv
@@ -85,6 +89,7 @@ outputs:
   - package:
       name: tinyobjloader
     build:
+      skip: target_platform == "win-arm64"
       noarch: generic
     requirements:
       run:

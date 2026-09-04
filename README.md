@@ -72,17 +72,17 @@ Current build status
         <table>
           <thead><tr><th>Variant</th><th>Status</th></tr></thead>
           <tbody><tr>
-              <td>osx_64</td>
+              <td>osx_64_channel_sourcesconda-forge</td>
               <td>
                 <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=13064&branchName=main">
-                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/tinyobjloader-feedstock?branchName=main&jobName=osx&configuration=osx%20osx_64_" alt="variant">
+                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/tinyobjloader-feedstock?branchName=main&jobName=osx&configuration=osx%20osx_64_channel_sourcesconda-forge" alt="variant">
                 </a>
               </td>
             </tr><tr>
-              <td>win_64</td>
+              <td>osx_64_channel_sourcesconda-forgeconda-forgelabelpython_rc</td>
               <td>
                 <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=13064&branchName=main">
-                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/tinyobjloader-feedstock?branchName=main&jobName=win&configuration=win%20win_64_" alt="variant">
+                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/tinyobjloader-feedstock?branchName=main&jobName=osx&configuration=osx%20osx_64_channel_sourcesconda-forgeconda-forgelabelpython_rc" alt="variant">
                 </a>
               </td>
             </tr>
@@ -112,31 +112,73 @@ conda config --add channels conda-forge
 conda config --set channel_priority strict
 ```
 
-Once the `conda-forge` channel has been enabled, `libtinyobjloader, tinyobjloader, tinyobjloader-python` can be installed with `conda`:
+How to use
+----------
+
+<details>
+<summary>With conda</summary>
 
 ```
 conda install libtinyobjloader tinyobjloader tinyobjloader-python
 ```
 
-or with `mamba`:
+</details>
+
+<details>
+<summary>With mamba</summary>
 
 ```
 mamba install libtinyobjloader tinyobjloader tinyobjloader-python
 ```
 
-It is possible to list all of the versions of `libtinyobjloader` available on your platform with `conda`:
+</details>
+
+<details>
+<summary>With pixi</summary>
+
+```
+# for adding to your local project
+pixi add libtinyobjloader tinyobjloader tinyobjloader-python
+# for installing globally
+pixi global install libtinyobjloader tinyobjloader tinyobjloader-python
+```
+
+</details>
+
+Search package versions
+-----------------------
+
+It is possible to list all of the versions of `libtinyobjloader` available on your platform:
+
+<details>
+<summary>With conda</summary>
 
 ```
 conda search libtinyobjloader --channel conda-forge
 ```
 
-or with `mamba`:
+</details>
+
+<details>
+<summary>With mamba</summary>
 
 ```
 mamba search libtinyobjloader --channel conda-forge
 ```
 
-Alternatively, `mamba repoquery` may provide more information:
+</details>
+
+<details>
+<summary>With pixi</summary>
+
+```
+pixi search libtinyobjloader --channel conda-forge
+```
+
+</details>
+
+<details>
+<summary>With mamba repoquery, which may provide more information</summary>
 
 ```
 # Search all versions available on your platform:
@@ -148,6 +190,8 @@ mamba repoquery whoneeds libtinyobjloader --channel conda-forge
 # List dependencies of `libtinyobjloader`:
 mamba repoquery depends libtinyobjloader --channel conda-forge
 ```
+
+</details>
 
 
 About conda-forge
